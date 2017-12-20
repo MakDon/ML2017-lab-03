@@ -61,16 +61,15 @@ if __name__ == "__main__":
     # fit
     classsfier = AdaBoostClassifier(tree.DecisionTreeClassifier, 5)
     classsfier.fit(x_train, y_train)
+
+    # predict
     y_predict = classsfier.predict(x_test)
-    miss = 0
+
+
+    # conduct report
     y_truth = [i[0] for i in y_test]
     y_pred = [i[0] for i in y_predict]
     report = classification_report(y_truth, y_pred)
     with open('report.txt', 'w') as report_file:
         report_file.write(report)
-    for i in range(len(y_test)):
-        # print("i:" + str(i) + "    y_test:" + str(y_test[i][0]) + "    predict:" + str(y_predict[i][0]))
-
-        if y_test[i][0] * y_predict[i][0] == -1 :
-            miss += 1
-    print(miss)
+    print(report)
